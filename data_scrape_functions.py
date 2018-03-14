@@ -279,6 +279,11 @@ def pagenate_all_reviews(driver):
 
         current_page += 1
 
+    # Get back to first page of provider reviews
+    if max_pages > 1:
+        for i in range(1, max_pages):
+            driver.execute_script("window.history.go(-1)")
+
     return all_reviews_dict
 
 
