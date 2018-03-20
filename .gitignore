@@ -1,13 +1,12 @@
 *.ini
 .idea/
+*.log
+ec2_setup.txt
 *.pkl
 *.pickle
 *.csv
 .DS_Store
-models/
-congress-legislators/
-archive/
-google_service_account.json
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
