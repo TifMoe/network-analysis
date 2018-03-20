@@ -5,19 +5,26 @@ from configparser import ConfigParser
 import time
 import os
 from collections import defaultdict
+import pickle
+import gzip
 
 
 config = ConfigParser()
 config.read('config.ini')
 
 
-def instantiate_driver():
+def instantiate_driver(browser=True):
     """
-    Create a Chrome webdriver instance
+    Create a Chrome webdriver instance with either an incognito browser or headless browser
     :return: driver
     """
+
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--incognito")
+
+    if browser:
+        chrome_options.add_argument("--incognito")
+    else:
+        chrome_options.add_argument("--headless")
 
     chromedriver = "/Applications/chromedriver"
     os.environ["webdriver.chrome.driver"] = chromedriver
@@ -287,7 +294,7 @@ def pagenate_all_reviews(driver):
     return all_reviews_dict
 
 
-def pagenate_all_providers(driver, max_pages=None):
+def pagenate_all_providers(driver, max_pages=None, save_interval_pages=None):
     """Iterate over all pages, up to the max page number if provided, and return list of data for all providers"""
     providers_list = []
     paginate_tag = config.get('SiteTags', 'paginate_tag')
@@ -314,6 +321,18 @@ def pagenate_all_providers(driver, max_pages=None):
             pagination = driver.find_element_by_class_name( f'{paginate_tag}')
             pagination.find_element_by_partial_link_text(f"{str(next_page)}").send_keys(Keys.RETURN)
 
+            # Save new temp file if saving interval turned on
+            if save_interval_pages:
+                if current_page % save_interval_pages == 0:
+                    with gzip.open('data/data_temp.pkl', 'wb') as file:
+                        pickle.dump(providers_list, file)
+
+                    print(f'Temp data successfully written at page {driver.current_url.rsplit("-", 1)[-1][0]}')
+
         current_page += 1
 
+    with gzip.open('data/data_temp.pkl', 'wb') as file:
+        pickle.dump(providers_list, file)
+
     return providers_list
+
