@@ -5,6 +5,7 @@ import pandas as pd
 from collections import Counter, defaultdict
 import json
 
+
 def import_pickled_files(directory_path):
     """Utility function to read in files from a folder"""
     all_files = []
@@ -141,13 +142,12 @@ n = relevant_nodes.drop_duplicates().to_dict('records')
 renamed_edges = relevant_edges.rename(columns={'src':'source', 'dst':'target', 'relationship':'type'})
 e = renamed_edges.drop_duplicates().to_dict('records')
 
+data = {'nodes': n, 'edges': e}
 
 # Pickle data in format ready for graphing
-with open('data/processed/nodes.pkl', 'wb') as file:
-    pickle.dump(n, file)
+with open('data/processed/nodes_edges.pkl', 'wb') as file:
+    pickle.dump(data, file)
 
-with open('data/processed/edges.pkl', 'wb') as file:
-    pickle.dump(e, file)
 
 
 
