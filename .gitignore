@@ -8,6 +8,11 @@ ec2_setup.txt
 .DS_Store
 data/
 
+bower.json
+.bowerrc
+records
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
