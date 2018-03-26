@@ -14,7 +14,7 @@
 }
 
 svg {
-  border:1px solid black;
+  border:1px solid lightgrey;
 }
 
 </style>
@@ -41,6 +41,10 @@ svg {
 
     var radius = 15;
 
+    //add encompassing group for the zoom
+    var g = svg.append("g")
+        .attr("class", "everything");
+
     //add zoom capabilities
     var zoom_handler = d3.zoom()
         .on("zoom", zoom_actions);
@@ -56,29 +60,36 @@ svg {
     d3.json("/data", function(error, graph) {
 
         //Entities
-        var nodes_data = graph.nodes
+        var nodes_data = graph.nodes;
 
         //Relationships
-        var links_data = graph.edges
-
+        var links_data = graph.edges;
 
         //set up the simulation
         //nodes only for now
         var simulation = d3.forceSimulation()
             .nodes(nodes_data);
 
+        var forceCollide = d3.forceCollide()
+            .radius(function(d){return d.radius;})
+            .iterations(2)
+            .strength(0.95);
+
         //add forces
         //we're going to add a charge to each node
         //also going to add a centering force
         simulation
-            .force("charge_force", d3.forceManyBody().strength(-10))
-            .force("collision_force", d3.forceCollide().strength(1))
-            .force("center_force", d3.forceCenter(width / 2, height / 2));
+            .force("charge_force", d3.forceManyBody().strength(-2))
+            .force("center_force", d3.forceCenter(width / 2, height / 2))
+            .force("collide", forceCollide);
 
 
-        //add encompassing group for the zoom
-        var g = svg.append("g")
-            .attr("class", "everything");
+        var tooltip = d3.select("body")
+            .append("g")
+            .style("position", "absolute")
+            .style("z-index", "10")
+            .style("visibility", "hidden")
+            .text('no info');
 
         //draw lines for the links
         var link = g.append("g")
@@ -86,7 +97,7 @@ svg {
             .selectAll("line")
             .data(links_data)
             .enter().append("line")
-            .attr("stroke-width", 2)
+            .attr("stroke-width", 1)
             .style('stroke', 'grey');
 
 
@@ -98,18 +109,24 @@ svg {
             .enter()
             .append("circle")
             .attr("r", circleSize)
-            .attr("fill", circleColour);
+            .attr("fill", circleColour)
+            .on("click", function(d){
+                console.log(d.id)})
+            .on("mouseover", function(d){return tooltip.style("visibility", "visible").text(d.name, d.id);})
+            .on("mousemove", function(){return tooltip.style("top",
+                (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+            .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
 
         //Function to choose what color circle we have
         //Let's return blue for males and red for females
         function circleColour(d){
             if(d.type == "provider"){
-                return "red";
+                return "#cd6200";
             } else if(d.type == "phone_number"){
-                return "pink";
+                return "#cdc900";
             } else {
-                return "grey";
+                return "#5e6e62";
             }
         }
 
