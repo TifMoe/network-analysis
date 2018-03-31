@@ -2,6 +2,7 @@
 .idea/
 *.log
 ec2_setup.txt
+mongo_setup.txt
 *.pkl
 *.pickle
 *.csv
