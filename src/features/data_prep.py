@@ -3,7 +3,6 @@ import gzip
 import os
 import pandas as pd
 from collections import Counter, defaultdict
-import json
 
 
 def import_pickled_files(directory_path):
