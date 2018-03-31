@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+svg {
+  border:1px solid lightgrey;
+}
+
+</style>
+
+<head>
+    <title>Flask Graph</title>
+</head>
+
+
+<div align="center">
+    <svg width="400" height="400" alignment-baseline="central"></svg>
+</div>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="{{url_for('static', filename='main.js')}}"></script>
+
