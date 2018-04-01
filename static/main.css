@@ -1,4 +1,48 @@
 
+/* Home Page */
+body {
+  font: 20px Montserrat, sans-serif;
+  line-height: 1.8;
+  color: #2f2f2f;
+}
+p {font-size: 16px;}
+
+.margin {margin-bottom: 45px;}
+
+
+.bg-2 {
+  background-color: #657272;
+  color: #f5f6f7;
+}
+
+.bg-3 {
+  background-color: #fff;
+  color: #2f2f2f;
+}
+
+.bg-4 {
+  background-color: #2f2f2f;
+  color: #fff;
+}
+.container-fluid {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+.navbar {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  letter-spacing: 5px;
+}
+.navbar-nav  li a:hover {
+  color: #A85849 !important;
+}
+
+
+/* GRAPH Page */
 
 .links line {
   stroke: #999;
@@ -8,4 +52,117 @@
 .nodes circle {
   stroke: #fff;
   stroke-width: 1.5px;
+  cursor: pointer;
+}
+
+svg {
+  border:1px solid lightgrey;
+}
+
+
+.main_content {
+  margin: 0;
+  overflow: hidden;
+  height:100%;
+}
+
+.left {
+  background-color: white;
+  text-align: center;
+  height:100%;
+  float: left;
+  top: 0px;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 25%;
+  overflow-y: scroll;
+}
+
+
+
+/* Button Group */
+
+.btn-group button {
+    background-color: white; /* white background */
+    border-bottom: 1px solid #657272; /* blue border */
+    color: #2f2f2f; /* White text */
+    padding: 30px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    width: 100%; /* Set a width if needed */
+    display: block; /* Make the buttons appear below each other */
+}
+
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    color: #2f2f2f;
+    background-color: darkgrey; /* white background */
+}
+
+
+
+/* Try to get a legend in there! */
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Structure */
+
+.container{
+    width: 90%;
+    margin: 0 auto;
+}
+
+#chart {
+    width:60%;
+    float: left;
+    /* border: #900 dashed 1px; */
+}
+
+#sidebar {
+    width:35%;
+    float: right;
+    border-left: #ededed solid 1px;
+}
+
+
+
+/* Legend */
+
+#key ul li {
+    text-decoration: none;
+    margin-bottom: 3px;
+    font-weight: 300;
+    font-size: .8rem;
+    padding: 10px 30px;
+}
+
+#key ul li:hover {
+    cursor: pointer;
+}
+
+#key ul li:last-child {
+    display: none;
+}
+
+.node {
+    stroke: #bfbfbf;
+    stroke-width: 1.5px;
+    cursor: pointer;
+}
+.node {
+    font: 10px sans-serif;
+}
+.link {
+    fill: none;
+    stroke: #bfbfbf;
+    stroke-width: 1.5px;
+}
+
+.selected {
+    color: #222222;
 }
