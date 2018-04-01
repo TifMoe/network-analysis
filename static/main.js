@@ -1,3 +1,8 @@
+$(function(){
+    $("#provider").hide();
+});
+
+
     //Javascript to create a D3js force graph visualization
 
     //create somewhere to put the force directed graph
@@ -78,7 +83,7 @@
             .attr("fill", circleColour)
             .on("click", function(d){
                 console.log(d.id)})
-            .on("mouseover", function(d){return tooltip.style("visibility", "visible").text(d.id);})
+            .on("mouseover", function(d){return tooltip.style("visibility", "visible").text(d.name);})
             .on("mousemove", function(){return tooltip.style("top",
                 (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
             .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
@@ -169,5 +174,22 @@
         }
 
         drag_handler(node)
+
 });
 
+
+/* Create provider list */
+d3.json("/provider_data", function(error, json_array) {
+
+    $.each(json_array.providers, function () {
+
+    var newProvider = $("body").find("#provider > div").clone();
+
+    newProvider.find(".name").append(this.name);
+    newProvider.find(".phone").append(this.attributes['Phone Number']);
+    newProvider.find(".date").append(this.max_date);
+    newProvider.find(".rank").append(this.dense_rank);
+
+    $(newProvider).appendTo(".node_list");
+  });
+});
