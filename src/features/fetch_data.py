@@ -20,6 +20,18 @@ def fetch_data(min_priority_score):
     return data
 
 
+def fetch_providers(min_priority_score):
+    config = ConfigParser()
+    config.read('config.ini')
+
+    db = connect_mongo(config)
+    edges, nodes = fetch_collections(db)
+    priority_providers = list(nodes.find({'priority_score': {'$gte': min_priority_score}, 'type': 'provider'}, {'_id': 0}))
+
+    data = {'providers': priority_providers}
+    return data
+
+
 def rename_target_source(json_list):
 
     for i in json_list:

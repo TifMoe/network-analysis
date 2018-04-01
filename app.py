@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for
-from src.features.fetch_data import fetch_data
+from src.features.fetch_data import fetch_data, fetch_providers
 import os
 
 app = Flask(__name__)
@@ -39,6 +39,11 @@ def admin():
 @app.route("/data")
 def data():
     return jsonify(fetch_data(.3))
+
+
+@app.route("/provider_data")
+def provider_data():
+    return jsonify(fetch_providers(.3))
 
 
 if __name__ == '__main__':
