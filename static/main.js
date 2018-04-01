@@ -169,5 +169,5 @@
         }
 
         drag_handler(node)
-    });
+});
 
