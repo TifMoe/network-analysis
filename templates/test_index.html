@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+<head>
+    <title>Flask Graph</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="chart"></div>
+        <div id="sidebar">
+            <div id="key"></div>
+        </div>
+    </div>
+
+</body>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="{{url_for('static', filename='test_legend.js')}}"></script>
+
