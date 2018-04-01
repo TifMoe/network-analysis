@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -40,29 +41,15 @@
 <!-- First Container -->
 <div class="container-fluid bg-2 text-center">
   <h1>Some set of instructions</h1>
-  <br>
 </div>
 
 <!-- Second Container -->
 <div class="container-fluid bg-3 text-center">
 
      <div class="row main_content">
-        <div class="col-sm-3 btn-group left container-fluid ">
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-              <button>NAME and contact info</button>
-
+        <div class="node_list col-sm-3 btn-group pre-scrollable container-fluid ">
         </div>
+
 
 
         <div align="right" class="col-sm-9 container-fluid ">
@@ -81,5 +68,23 @@
 </body>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <script src="{{url_for('static', filename='main.js')}}"></script>
 
+</html>
+
+<div id="provider">
+                <div>
+                    <button>
+                         <div class="card" style="width: 100%;">
+                              <div align="left" class="card-body">
+                                <h1 align='center' class="rank card-tile"></h1>
+                                <h2 align='center' class="name card-tile"></h2>
+                                <h4 class="phone card-tile mb-2 text-muted">Phone: </h4>
+                                <h4 class="date card-tile mb-2 text-muted">Last Review:</h4>
+                                <p class="card-text"></p>
+                              </div>
+                            </div>
+                      </button>
+                </div>
+    </div>
