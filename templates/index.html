@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Bootstrap Theme Simply Me</title>
+  <title>Volunteer Portal</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -10,16 +10,15 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<head>
-    <title>Flask Graph</title>
 </head>
 
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -39,21 +38,29 @@
 
 
 <!-- First Container -->
-<div class="container-fluid bg-2 text-center">
-  <h1>Some set of instructions</h1>
+<div class="container-fluid bg-2">
+    <br>
+  <h4 align="center">Welcome to the</h4>
+  <h1 align="center">Outreach Portal</h1>
+  <p align="center">View the ordered list below of high priority cases and
+      click to see any other listings who may be linked</p>
 </div>
 
 <!-- Second Container -->
-<div class="container-fluid bg-3 text-center">
+<div class="container-fluid bg-3">
+    <div class="row">
+        <h2 class="col-sm-4 margin" align="center">Priority List</h2>
+        <h2 class="col-sm-8 margin" align="center">Network of High Priority Cases</h2>
+    </div>
+
 
      <div class="row main_content">
-        <div class="node_list col-sm-3 btn-group pre-scrollable container-fluid ">
+        <div class="node_list col-sm-4 btn-group-long pre-scrollable container-fluid ">
         </div>
 
-
-
-        <div align="right" class="col-sm-9 container-fluid ">
-            <svg width="600" height="600" alignment-baseline="central"></svg>
+        <div align="center" class="col-sm-8">
+            <svg width="500" height="500" style="top: 50%; text-align: center">
+            </svg>
         </div>
     </div>
 
@@ -71,20 +78,34 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <script src="{{url_for('static', filename='main.js')}}"></script>
 
-</html>
 
+
+<!-- Template the provider list card -->
 <div id="provider">
-                <div>
-                    <button>
-                         <div class="card" style="width: 100%;">
-                              <div align="left" class="card-body">
-                                <h1 align='center' class="rank card-tile"></h1>
-                                <h2 align='center' class="name card-tile"></h2>
-                                <h4 class="phone card-tile mb-2 text-muted">Phone: </h4>
-                                <h4 class="date card-tile mb-2 text-muted">Last Review:</h4>
-                                <p class="card-text"></p>
-                              </div>
-                            </div>
-                      </button>
+    <div>
+        <button>
+             <div class="card" style="width: 100%;">
+                  <div align="left" class="card-body">
+                    <h1 align='center'> <span class="rank badge lb-lg"></span> </h1>
+                    <h2 align='center' class="name card-tile"></h2>
+
+                      <ul>
+                          <li class="phone"> Phone: </li>
+                          <li class="date"> Last Review: </li>
+                          <li class="status"> Status: </li>
+                      </ul>
+
+                      <textarea rows="2" style="width: 100%" placeholder="Enter your notes here"></textarea>
+                    <p class="card-text"></p>
+
+                      <!-- Change status button -->
+                      <!-- Link to listing -->
+
+
+                  </div>
                 </div>
+          </button>
     </div>
+    </div>
+
+</html>
