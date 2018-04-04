@@ -9,6 +9,10 @@ p {font-size: 16px;}
 
 .margin {margin-bottom: 45px;}
 
+.lb-lg {
+  font-size: 40px;
+}
+
 
 .bg-2 {
   background-color: #657272;
@@ -56,7 +60,8 @@ p {font-size: 16px;}
 }
 
 svg {
-  border:1px solid lightgrey;
+  border: 2px solid #cec841;
+  background-color: white;
 }
 
 
@@ -79,15 +84,19 @@ svg {
   overflow-y: scroll;
 }
 
-
+.pre-scrollable {
+    max-height: 600px !important;
+    overflow-y: scroll;
+    border-color: white;
+}
 
 /* Button Group */
-
-.btn-group button {
+.btn-group-long button {
     background-color: white; /* white background */
+    border-color: white;
     border-bottom: 1px solid #657272; /* blue border */
-    color: #2f2f2f; /* White text */
-    padding: 30px 24px; /* Some padding */
+    color: #2f2f2f;
+    padding: 10px 24px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     width: 100%; /* Set a width if needed */
     display: block; /* Make the buttons appear below each other */
@@ -95,9 +104,9 @@ svg {
 
 
 /* Add a background color on hover */
-.btn-group button:hover {
-    color: #2f2f2f;
-    background-color: darkgrey; /* white background */
+.btn-group-long button:hover {
+    color:  #2f2f2f;
+    background-color: rgba(103, 113, 113, 0.21); /* white background */
 }
 
 
