@@ -16,16 +16,6 @@ $(function(){
     var g = svg.append("g")
         .attr("class", "everything");
 
-    //add zoom capabilities
-    var zoom_handler = d3.zoom()
-        .on("zoom", zoom_actions);
-
-    zoom_handler(svg);
-
-    function zoom_actions(){
-        g.attr("transform", d3.event.transform)
-    }
-
 
     //d3 code goes here
     d3.json("/data", function(error, graph) {
@@ -37,14 +27,19 @@ $(function(){
         var links_data = graph.edges;
 
         //set up the simulation
-        //nodes only for now
+        const forceX = d3.forceX(width / 2).strength(0.015)
+        const forceY = d3.forceY(height / 2).strength(0.015)
+
         var simulation = d3.forceSimulation()
-            .nodes(nodes_data);
+            .nodes(nodes_data)
+            .force('x', forceX)
+            .force('y', forceY);
+
 
         var forceCollide = d3.forceCollide()
             .radius(function(d){return d.radius;})
             .iterations(2)
-            .strength(0.95);
+            .strength(1);
 
         //add forces
         //we're going to add a charge to each node
@@ -83,10 +78,46 @@ $(function(){
             .attr("fill", circleColour)
             .on("click", function(d){
                 console.log(d.id)})
-            .on("mouseover", function(d){return tooltip.style("visibility", "visible").text(d.name);})
-            .on("mousemove", function(){return tooltip.style("top",
-                (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-            .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+            .on("mouseover", ToolTipOver)
+            .on("mousemove", ToolTipMove)
+            .on("mouseout", ToolTipOut);
+
+        var label = svg.selectAll(null)
+            .data(graph.nodes)
+            .enter()
+            .append("text")
+            .text(function (d) { if(d.type == "provider"){ return d.dense_rank; }})
+            .style("text-anchor", "middle")
+            .style("fill", "#fff")
+            .style("font-family", "Arial")
+            .style("font-size", 15)
+            .on("mouseover", ToolTipOver)
+            .on("mousemove", ToolTipMove)
+            .on("mouseout", ToolTipOut);
+
+
+        function ToolTipOver(d){
+            if (d.type != 'reviewer'){
+            return tooltip
+                .style("visibility", "visible").text(d.name)
+                .style("cursor", "pointer");
+            }
+        }
+
+        function ToolTipMove(d){
+            if (d.type != 'reviewer'){
+                return tooltip
+                    .style("top", (d3.event.pageY-10)+"px")
+                    .style("left",(d3.event.pageX+10)+"px")
+                    .style("cursor", "pointer");;
+            }
+        }
+
+        function ToolTipOut(d){
+            if (d.type != 'reviewer'){
+                return tooltip.style("visibility", "hidden");
+            }
+        }
 
 
         //Function to choose what color circle we have
@@ -103,9 +134,11 @@ $(function(){
 
         function circleSize(d){
             if(d.type == 'provider'){
-                return 18;
+                return 25;
+            } else if(d.type == 'phone_number') {
+                return 12;
             } else {
-                return 7;
+                return 8;
             }
         }
 
@@ -145,6 +178,9 @@ $(function(){
                 .attr("x2", function(d) { return d.target.x; })
                 .attr("y2", function(d) { return d.target.y; });
 
+            label.attr("x", function(d){ return d.x; })
+    			 .attr("y", function (d) {return d.y + 3; });
+
         }
 
         simulation.on("tick", tickActions);
@@ -174,22 +210,26 @@ $(function(){
         }
 
         drag_handler(node)
+        drag_handler(label)
+
+        /*Create Priority List Div */
+
+        var provider_nodes = $.grep(graph.nodes, function (element, index) {
+            return element.type == 'provider';
+        });
+
+        $.each(provider_nodes, function () {
+
+            var newProvider = $("body").find("#provider > div").clone();
+
+            newProvider.find(".name").append(this.name);
+            newProvider.find(".phone").append(this.attributes['Phone Number']);
+            newProvider.find(".date").append(this.max_date);
+            newProvider.find(".rank").append(this.dense_rank);
+            newProvider.find(".status").append(this.status);
+
+            $(newProvider).appendTo(".node_list");
+          });
 
 });
 
-
-/* Create provider list */
-d3.json("/provider_data", function(error, json_array) {
-
-    $.each(json_array.providers, function () {
-
-    var newProvider = $("body").find("#provider > div").clone();
-
-    newProvider.find(".name").append(this.name);
-    newProvider.find(".phone").append(this.attributes['Phone Number']);
-    newProvider.find(".date").append(this.max_date);
-    newProvider.find(".rank").append(this.dense_rank);
-
-    $(newProvider).appendTo(".node_list");
-  });
-});
